@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In a Relationship</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/yes.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="heading">We Are Now in a Relationship! ❤️</h1>
+        <p id="love-messages" class="love-messages"></p>
+    </div>
+
+    <script>
+        const messages = [
+            "You are my heart, my soul, my everything. Our love will last forever and always. I love you more than words can express. With you, every moment is magical."
+        ];
+
+        const messageElement = document.getElementById('love-messages');
+        const heading = document.getElementById('heading');
+
+        function typeMessage(message, index = 0) {
+            if (index < message.length) {
+                messageElement.textContent += message[index];
+                setTimeout(() => typeMessage(message, index + 1), 50); // Adjust typing speed here
+            } else {
+                setTimeout(() => {
+                    messageElement.textContent += '\n'; // Add a line break after each message
+                    const nextMessage = messages.shift();
+                    if (nextMessage) {
+                        setTimeout(() => typeMessage(nextMessage), 1000); // Delay before starting the next message
+                    }
+                }, 1000); // Delay before starting the next message
+            }
+        }
+
+        // Start typing the heading first
+        heading.addEventListener('animationend', () => {
+            messageElement.style.visibility = 'visible'; // Show messages after heading animation
+            typeMessage(messages.shift()); // Start typing the first message
+        });
+
+        // Create floating hearts
+        function createHearts() {
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'emoji';
+                heart.textContent = '❤️';
+                heart.style.top = `${Math.random() * 100}%`;
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.fontSize = `${Math.random() * 10 + 15}px`; // Random size between 15px and 25px
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 8000); // Remove hearts after 8 seconds
+            }
+        }
+
+        setInterval(createHearts, 1000); // Create hearts every second
+    </script>
+</body>
+</html>

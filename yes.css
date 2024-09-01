@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: url('https://i.imgur.com/3lEHMOM.png') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
+
+.container {
+    width: 80%;
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    text-align: center; /* Center align text */
+    z-index: 1; /* Ensure container is above the emojis */
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #ff69b4; /* Initial love color */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    animation: titleAnimation 5s ease-in-out forwards;
+}
+
+@keyframes titleAnimation {
+    0% { color: #ff69b4; }
+    100% { color: red; }
+}
+
+.love-messages {
+    font-size: 24px;
+    line-height: 1.5;
+    color: white; /* Set message color to white */
+    white-space: pre-wrap;
+    overflow: hidden;
+    border-right: 4px solid white; /* Cursor effect */
+    animation: blink-caret 0.75s step-end infinite;
+    visibility: hidden; /* Initially hidden */
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: white; }
+}
+
+.emoji {
+    position: absolute;
+    font-size: 20px; /* Adjust size as needed */
+    color: red;
+    opacity: 0.5; /* Reduce opacity to make emojis less prominent */
+    animation: float 8s ease-in-out infinite;
+    user-select: none;
+    z-index: 0; /* Ensure emojis are behind the text */
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
+}

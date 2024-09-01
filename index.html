@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div id="game-container">
+        <h1>Do you love me? ❤️</h1>
+        <div class="buttons-container">
+            <button id="yes">Yes</button>
+            <button id="target">No</button>
+        </div>
+    </div>
+    <audio id="congrats-sound" src="congratulations.mp3"></audio>
+    <script>
+        const target = document.getElementById('target');
+        const yesButton = document.getElementById('yes');
+        const gameContainer = document.getElementById('game-container');
+        const congratsSound = document.getElementById('congrats-sound');
+
+        function moveTarget() {
+            const container = gameContainer;
+            const containerRect = container.getBoundingClientRect();
+            const buttonRect = target.getBoundingClientRect();
+
+            // Calculate maximum allowed positions to keep the button within the container
+            const maxWidth = containerRect.width - buttonRect.width;
+            const maxHeight = containerRect.height - buttonRect.height;
+
+            const randomX = Math.random() * maxWidth;
+            const randomY = Math.random() * maxHeight;
+
+            target.style.left = `${randomX}px`;
+            target.style.top = `${randomY}px`;
+        }
+
+        target.addEventListener('mouseenter', moveTarget);
+
+        gameContainer.addEventListener('mouseleave', function() {
+            target.style.left = '0px';
+            target.style.top = '0px';
+        });
+
+        yesButton.addEventListener('click', function() {
+            congratsSound.play();
+
+            // Create a burst of emojis around the Yes button
+            const emojis = ['❤️', '😍', '🥰', '💖', '💘'];
+            const emojiCount = 30; // Number of emojis to display
+
+            for (let i = 0; i < emojiCount; i++) {
+                const emoji = document.createElement('div');
+                emoji.className = 'emoji';
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.style.fontSize = `${Math.random() * 20 + 15}px`; // Random size between 15px and 35px
+                emoji.style.top = `${Math.random() * 100}%`;
+                emoji.style.left = `${Math.random() * 100}%`;
+                document.body.appendChild(emoji);
+
+                setTimeout(() => {
+                    emoji.remove();
+                }, 5000);
+            }
+
+            setTimeout(() => {
+                window.location.href = "yes.html";
+            }, 2000); // 2 seconds delay
+        });
+
+        // Add floating hearts
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.className = 'emoji';
+            heart.textContent = '❤️';
+            heart.style.fontSize = `${Math.random() * 20 + 15}px`; // Random size between 15px and 35px
+            heart.style.top = `${Math.random() * 100}%`;
+            heart.style.left = `${Math.random() * 100}%`;
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }, 500);
+    </script>
+</body>
+</html>
